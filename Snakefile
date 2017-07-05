@@ -35,7 +35,7 @@ ALIGNED_CONTIGS_BAM = os.path.join(ANALYSIS_DIR, "aligned_contigs.bam")
 DALIGNER_DEFAULTS = config.get('daligner', {
     'e': 0.99999999,
     'k': 20,
-    'w': 0,
+    'w': 1,
     'h': 45,
     'l': 1000,
     's': 100

@@ -5,7 +5,7 @@ daligner:
     threads: 4
     e: 0.999999999
     k: 20
-    w: 0
+    w: 1
     h: 45
     l: 1000
     s: 100
