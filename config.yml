@@ -1,0 +1,121 @@
+dazz_db:
+    blocksize: 200
+daligner:
+    mem: 16
+    threads: 4
+    e: 0.999999999
+    k: 20
+    w: 0
+    h: 45
+    l: 1000
+    s: 100
+phasm:
+    layout:
+        l: 5000
+readsets:
+    ploidy2-10x:
+        genome: ploidy-2
+        coverage: 10
+    ploidy2-30x:
+        genome: ploidy-2
+        coverage: 30
+    ploidy2-60x:
+        genome: ploidy-2
+        coverage: 60
+    ploidy3-10x:
+        genome: ploidy-3
+        coverage: 10
+    ploidy3-30x:
+        genome: ploidy-3
+        coverage: 30
+    ploidy3-60x:
+        genome: ploidy-3
+        coverage: 60
+    ploidy4-10x:
+        genome: ploidy-4
+        coverage: 10
+    ploidy4-30x:
+        genome: ploidy-4
+        coverage: 30
+    ploidy4-60x:
+        genome: ploidy-4
+        coverage: 60
+    ploidy6-10x:
+        genome: ploidy-6
+        coverage: 10
+    ploidy6-30x:
+        genome: ploidy-6
+        coverage: 30
+    ploidy6-60x:
+        genome: ploidy-6
+        coverage: 60
+    ploidy8-10x:
+        genome: ploidy-8
+        coverage: 10
+    ploidy8-30x:
+        genome: ploidy-8
+        coverage: 30
+    ploidy8-60x:
+        genome: ploidy-8
+        coverage: 60
+assemblies:
+    ploidy2-10x-error-free:
+        reads: "reads/error_free/ploidy2-10x.fasta"
+        fix_headers: true
+        ploidy: 2
+    ploidy2-30x-error-free:
+        reads: "reads/error_free/ploidy2-30x.fasta"
+        fix_headers: true
+        ploidy: 2
+    ploidy2-60x-error-free:
+        reads: "reads/error_free/ploidy2-60x.fasta"
+        fix_headers: true
+        ploidy: 2
+    ploidy3-10x-error-free:
+        reads: "reads/error_free/ploidy3-10x.fasta"
+        fix_headers: true
+        ploidy: 3
+    ploidy3-30x-error-free:
+        reads: "reads/error_free/ploidy3-30x.fasta"
+        fix_headers: true
+        ploidy: 3
+    ploidy3-60x-error-free:
+        reads: "reads/error_free/ploidy3-60x.fasta"
+        fix_headers: true
+        ploidy: 3
+    ploidy4-10x-error-free:
+        reads: "reads/error_free/ploidy4-10x.fasta"
+        fix_headers: true
+        ploidy: 4
+    ploidy4-30x-error-free:
+        reads: "reads/error_free/ploidy4-30x.fasta"
+        fix_headers: true
+        ploidy: 4
+    ploidy4-60x-error-free:
+        reads: "reads/error_free/ploidy4-60x.fasta"
+        fix_headers: true
+        ploidy: 4
+    ploidy6-10x-error-free:
+        reads: "reads/error_free/ploidy6-10x.fasta"
+        fix_headers: true
+        ploidy: 6
+    ploidy6-30x-error-free:
+        reads: "reads/error_free/ploidy6-30x.fasta"
+        fix_headers: true
+        ploidy: 6
+    ploidy6-60x-error-free:
+        reads: "reads/error_free/ploidy6-60x.fasta"
+        fix_headers: true
+        ploidy: 6
+    ploidy8-10x-error-free:
+        reads: "reads/error_free/ploidy8-10x.fasta"
+        fix_headers: true
+        ploidy: 8
+    ploidy8-30x-error-free:
+        reads: "reads/error_free/ploidy8-30x.fasta"
+        fix_headers: true
+        ploidy: 8
+    ploidy8-60x-error-free:
+        reads: "reads/error_free/ploidy8-60x.fasta"
+        fix_headers: true
+        ploidy: 8
