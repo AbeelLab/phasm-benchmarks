@@ -60,62 +60,77 @@ readsets:
         coverage: 60
 assemblies:
     ploidy2-10x-error-free:
+        reference: "genomes/ploidy-2/genome.fasta"
         reads: "reads/error_free/ploidy2-10x.fasta"
         fix_headers: true
         ploidy: 2
     ploidy2-30x-error-free:
+        reference: "genomes/ploidy-2/genome.fasta"
         reads: "reads/error_free/ploidy2-30x.fasta"
         fix_headers: true
         ploidy: 2
     ploidy2-60x-error-free:
+        reference: "genomes/ploidy-2/genome.fasta"
         reads: "reads/error_free/ploidy2-60x.fasta"
         fix_headers: true
         ploidy: 2
     ploidy3-10x-error-free:
+        reference: "genomes/ploidy-3/genome.fasta"
         reads: "reads/error_free/ploidy3-10x.fasta"
         fix_headers: true
         ploidy: 3
     ploidy3-30x-error-free:
+        reference: "genomes/ploidy-3/genome.fasta"
         reads: "reads/error_free/ploidy3-30x.fasta"
         fix_headers: true
         ploidy: 3
     ploidy3-60x-error-free:
+        reference: "genomes/ploidy-3/genome.fasta"
         reads: "reads/error_free/ploidy3-60x.fasta"
         fix_headers: true
         ploidy: 3
     ploidy4-10x-error-free:
+        reference: "genomes/ploidy-4/genome.fasta"
         reads: "reads/error_free/ploidy4-10x.fasta"
         fix_headers: true
         ploidy: 4
     ploidy4-30x-error-free:
+        reference: "genomes/ploidy-4/genome.fasta"
         reads: "reads/error_free/ploidy4-30x.fasta"
         fix_headers: true
         ploidy: 4
     ploidy4-60x-error-free:
+        reference: "genomes/ploidy-4/genome.fasta"
         reads: "reads/error_free/ploidy4-60x.fasta"
         fix_headers: true
         ploidy: 4
     ploidy6-10x-error-free:
+        reference: "genomes/ploidy-6/genome.fasta"
         reads: "reads/error_free/ploidy6-10x.fasta"
         fix_headers: true
         ploidy: 6
     ploidy6-30x-error-free:
+        reference: "genomes/ploidy-6/genome.fasta"
         reads: "reads/error_free/ploidy6-30x.fasta"
         fix_headers: true
         ploidy: 6
     ploidy6-60x-error-free:
+        reference: "genomes/ploidy-6/genome.fasta"
         reads: "reads/error_free/ploidy6-60x.fasta"
         fix_headers: true
         ploidy: 6
     ploidy8-10x-error-free:
+        reference: "genomes/ploidy-8/genome.fasta"
         reads: "reads/error_free/ploidy8-10x.fasta"
         fix_headers: true
         ploidy: 8
     ploidy8-30x-error-free:
+        reference: "genomes/ploidy-8/genome.fasta"
         reads: "reads/error_free/ploidy8-30x.fasta"
         fix_headers: true
         ploidy: 8
     ploidy8-60x-error-free:
+        reference: "genomes/ploidy-8/genome.fasta"
         reads: "reads/error_free/ploidy8-60x.fasta"
         fix_headers: true
         ploidy: 8
