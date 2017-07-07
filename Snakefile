@@ -165,6 +165,7 @@ rule createdb:
         os.path.join(OVERLAP_DIR, ".database.idx"),
         os.path.join(OVERLAP_DIR, ".database.bps"),
     log: os.path.join(OVERLAP_DIR, "createdb.log")
+    shadow: "shallow"
     params:
         path = os.path.join(OVERLAP_DIR, "database.db"),
         # DAZZ_DB only accepts PacBio like FASTA headers, fix them
@@ -211,13 +212,14 @@ rule daligner:
         LAS_FILE
     log: os.path.join(OVERLAP_DIR, "daligner.log")
     threads: 4
+    shadow: "shallow"
     params:
         db_name = os.path.join(OVERLAP_DIR, "database")
     shell:
         """
         /usr/bin/env bash {input.cmd} >> {log} 2>&1
         LAcat "{params.db_name}.#.las" > {output}
-        rm {params.db_name}.*.las
+        rm -f "{params.db_name}.*.las" || mv "{params.db_name}.las" alignments.las
         """
 
 # Convert DALIGNER local alignments to GFA2
@@ -225,8 +227,8 @@ rule daligner:
 # to use our original read ID's again.
 rule phasm_gfa:
     input:
-        DB_FILE,
-        LAS_FILE
+        db = DB_FILE,
+        las = LAS_FILE
     output:
         GFA_FILE
     log: os.path.join(OVERLAP_DIR, "daligner.log")
