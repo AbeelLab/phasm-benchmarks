@@ -1,4 +1,5 @@
 import os
+import glob
 
 configfile: "config.yml"
 
@@ -215,12 +216,15 @@ rule daligner:
     shadow: "shallow"
     params:
         db_name = os.path.join(OVERLAP_DIR, "database")
-    shell:
-        """
-        /usr/bin/env bash {input.cmd} >> {log} 2>&1
-        LAcat "{params.db_name}.#.las" > {output}
-        rm -f "{params.db_name}.*.las" || mv "{params.db_name}.las" alignments.las
-        """
+    run:
+        shell("/usr/bin/env bash {input.cmd} >> {log} 2>&1")
+        block_las_files = glob.glob(params.db_name + ".*.las")
+        print(block_las_files)
+        if len(block_las_files) == 0:
+            shell('mv "{params.db_name}.las" {output}')
+        else:
+            shell('LAcat "{params.db_name}.#.las" > {output}')
+            shell('rm -f "{params.db_name}.*.las"')
 
 # Convert DALIGNER local alignments to GFA2
 # Use earlier generated JSON translation file (see createdb)
