@@ -26,18 +26,18 @@ ASSEMBLY_GRAPH_GFA = os.path.join(LAYOUT_DIR, "assembly_graph.gfa")
 ASSEMBLY_GRAPH_GRAPHML = os.path.join(LAYOUT_DIR, "assembly_graph.graphml")
 
 COMPONENT_FILE = os.path.join(CHAIN_DIR, "component{component_id}.gfa")
-BUBBLECHAIN_FILE = os.path.join(CHAIN_DIR, "component{component_id}.bubblechain{bubblechain_id}.gfa")
+SUBGRAPH_FILE = os.path.join(CHAIN_DIR, "component{component_id}.{subgraph}.gfa")
 
-PHASED_FASTA_FILE = os.path.join(PHASE_DIR, "component{component_id}.bubblechain{bubblechain_id}.fasta")
+PHASED_FASTA_FILE = os.path.join(PHASE_DIR, "component{component_id}.{subgraph}.fasta")
 PHASED_CONCATENATED_FILE = os.path.join(PHASE_DIR, "{assembly}.fasta")
 
 ALIGNED_CONTIGS_BAM = os.path.join(ANALYSIS_DIR, "aligned_contigs.bam")
 
 DALIGNER_DEFAULTS = config.get('daligner', {
-    'e': 0.99999999,
-    'k': 20,
+    'e': 0.99999,
+    'k': 15,
     'w': 1,
-    'h': 45,
+    'h': 30,
     'l': 1000,
     's': 100
 })
@@ -63,7 +63,7 @@ def get_daligner_option(assembly, option):
 
 
 def gen_option_str(opts, allowed):
-    return " ".join("-{}{}".format(k, v) for k, v in opts.items() 
+    return " ".join("-{}{}".format(k, v) for k, v in opts.items()
                     if v and k in allowed)
 
 
@@ -258,7 +258,7 @@ rule phasm_chain:
     input:
         ASSEMBLY_GRAPH_GFA
     output:
-        dynamic(BUBBLECHAIN_FILE)
+        dynamic(SUBGRAPH_FILE)
     log: os.path.join(CHAIN_DIR, "phasm-chain.log")
     params:
         output_dir = CHAIN_DIR
@@ -269,7 +269,7 @@ rule phasm_phase:
     input:
         reads = lambda wildcards: config['assemblies'][wildcards.assembly]['reads'],
         gfa = GFA_FILE,
-        bubble_gfa = BUBBLECHAIN_FILE
+        bubble_gfa = SUBGRAPH_FILE
     output:
         PHASED_FASTA_FILE
     log: os.path.join(PHASE_DIR, "phasm-phase.log")
