@@ -277,7 +277,7 @@ rule phasm_phase:
         opts = lambda wildcards: get_phasm_phase_opts(wildcards.assembly),
         ploidy = lambda wildcards: config['assemblies'][wildcards.assembly]['ploidy']
     shell:
-        "phasm phase -p {params.ploidy} {params.opts} {input[0]} {input{1]} {input[2]} "
+        "phasm phase -p {params.ploidy} {params.opts} {input[0]} {input[1]} {input[2]} "
         "> {output}  2> {log}"
 
 rule phasm_concat:
