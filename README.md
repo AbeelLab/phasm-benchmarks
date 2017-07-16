@@ -43,3 +43,4 @@ Related Repositories
 
 [phasm]: https://github.com/lrvdijk/phasm
 [aneusim]: https://github.com/lrvdijk/aneusim
+[snakemake]: https://bitbucket.org/snakemake/snakemake
