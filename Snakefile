@@ -271,7 +271,7 @@ rule phasm_phase:
         bubble_gfa = SUBGRAPH_FILE
     output:
         PHASED_FASTA_FILE
-    log: os.path.join(PHASE_DIR, "phasm-phase.log")
+    log: os.path.join(PHASE_DIR, "phasm-phase-component{component_id}.{subgraph}.log")
     params:
         opts = lambda wildcards: get_phasm_phase_opts(wildcards.assembly),
         ploidy = lambda wildcards: config['assemblies'][wildcards.assembly]['ploidy']
