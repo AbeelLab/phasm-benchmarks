@@ -185,44 +185,34 @@ rule createdb:
         DBdust {params.path} >> {log} 2>&1
         """
 
-rule hpc_daligner:
+rule daligner:
     input:
-        DB_FILE
+        db = DB_FILE
     output:
-        DALIGNER_HPC_SH
+        DALIGNER_HPC_SH,
+        LAS_FILE
     log: os.path.join(OVERLAP_DIR, "daligner.log")
+    shadow: "shallow"
     params:
+        db_name = os.path.join(OVERLAP_DIR, "database"),
         mem = config['daligner']['mem'],
         k = lambda wildcards: get_daligner_option(wildcards.assembly, 'k'),
         w = lambda wildcards: get_daligner_option(wildcards.assembly, 'w'),
         h = lambda wildcards: get_daligner_option(wildcards.assembly, 'h'),
         e = lambda wildcards: get_daligner_option(wildcards.assembly, 'e'),
         l = lambda wildcards: get_daligner_option(wildcards.assembly, 'l'),
-        s = lambda wildcards: get_daligner_option(wildcards.assembly, 's'),
+        s = lambda wildcards: get_daligner_option(wildcards.assembly, 's')
     threads: int(config['daligner']['threads'])
-    shell:
-        "HPC.daligner -v -T{threads} -M{params.mem} -mdust -k{params.k} -w{params.w} -h{params.h} -e{params.e} "
-        "-s{params.s} {input} 1> {output} 2>> {log}"
-
-
-rule daligner:
-    input:
-        db = DB_FILE,
-        cmd = DALIGNER_HPC_SH
-    output:
-        LAS_FILE
-    log: os.path.join(OVERLAP_DIR, "daligner.log")
-    threads: 4
-    shadow: "shallow"
-    params:
-        db_name = os.path.join(OVERLAP_DIR, "database")
     run:
-        shell("/usr/bin/env bash {input.cmd} >> {log} 2>&1")
+        shell("""HPC.daligner -v -T{threads} -M{params.mem} -mdust -k{params.k} \
+            -w{params.w} -h{params.h} -e{params.e} \
+            -s{params.s} {input} 1> {output[0]} 2>> {log}""")
+        shell("/usr/bin/env bash {output[0]} >> {log} 2>&1")
         block_las_files = glob.glob(params.db_name + ".*.las")
         if len(block_las_files) == 0:
-            shell('mv "{params.db_name}.las" {output}')
+            shell('mv "{params.db_name}.las" {output[1]}')
         else:
-            shell('LAcat "{params.db_name}.#.las" > {output}')
+            shell('LAcat "{params.db_name}.#.las" > {output[1]}')
             shell('rm -f "{params.db_name}.*.las"')
 
 # Convert DALIGNER local alignments to GFA2
