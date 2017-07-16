@@ -84,7 +84,7 @@ def get_phasm_phase_opts(assembly):
 # Generates all assemblies
 rule all:
     input:
-        expand(PHASED_CONCATENATED_FILE, assembly=config['assemblies'].keys())
+        expand(PHASED_CONCATENATED_FILE, assembly=list(config['assemblies'].keys()))
 
 # Rule to generate all genomes at once
 rule all_genomes:
@@ -98,7 +98,7 @@ rule all_genomes:
 rule all_errorfree_readsets:
     input:
         expand(os.path.join(ERROR_FREE_READS_DIR, "{readset}.fasta"),
-               readset=config['readsets'].keys())
+               readset=list(config['readsets'].keys()))
 
 #
 # Benchmark genomes generation
