@@ -13,7 +13,7 @@ dependencies:
     - ipython
     - samtools
     - pytest
-    - snakemake>=3.10
+    - snakemake>=3.11
     - dazz_db=1.0p1
     - daligner=1.0p1
     - pip:
