@@ -3,10 +3,10 @@ dazz_db:
 daligner:
     mem: 16
     threads: 4
-    e: 0.999999999
-    k: 20
+    e: 0.999
+    k: 14
     w: 1
-    h: 45
+    h: 30
     l: 1000
     s: 100
 phasm:
