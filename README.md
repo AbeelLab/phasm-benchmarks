@@ -33,7 +33,7 @@ environment and run the pipeline.
     source activate phasm
 
     # Run the whole pipeline
-    snakemake --cores all
+    snakemake --cores 16 all
 
 Related Repositories
 --------------------
