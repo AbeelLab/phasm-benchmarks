@@ -2,11 +2,11 @@ dazz_db:
     blocksize: 200
 daligner:
     mem: 16
-    threads: 4
+    threads: 8
     e: 0.999
-    k: 14
+    k: 16
     w: 1
-    h: 30
+    h: 40
     l: 1000
     s: 100
 phasm:
