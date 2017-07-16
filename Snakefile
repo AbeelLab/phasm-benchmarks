@@ -201,7 +201,7 @@ rule hpc_daligner:
         s = lambda wildcards: get_daligner_option(wildcards.assembly, 's'),
     threads: int(config['daligner']['threads'])
     shell:
-        "HPC.daligner -v -t{threads} -M{params.mem} -mdust -k{params.k} -w{params.w} -h{params.h} -e{params.e} "
+        "HPC.daligner -v -T{threads} -M{params.mem} -mdust -k{params.k} -w{params.w} -h{params.h} -e{params.e} "
         "-s{params.s} {input} 1> {output} 2>> {log}"
 
 
