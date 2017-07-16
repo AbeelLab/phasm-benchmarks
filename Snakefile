@@ -34,7 +34,7 @@ PHASED_CONCATENATED_FILE = os.path.join(PHASE_DIR, "{assembly}.fasta")
 ALIGNED_CONTIGS_BAM = os.path.join(ANALYSIS_DIR, "aligned_contigs.bam")
 
 DALIGNER_DEFAULTS = config.get('daligner', {
-    'e': 0.99999,
+    'e': 0.9999,
     'k': 15,
     'w': 1,
     'h': 30,
@@ -201,7 +201,7 @@ rule hpc_daligner:
         s = lambda wildcards: get_daligner_option(wildcards.assembly, 's'),
     threads: int(config['daligner']['threads'])
     shell:
-        "HPC.daligner -t{threads} -M{params.mem} -mdust -k{params.k} -w{params.w} -h{params.h} -e{params.e} "
+        "HPC.daligner -v -t{threads} -M{params.mem} -mdust -k{params.k} -w{params.w} -h{params.h} -e{params.e} "
         "-s{params.s} {input} 1> {output} 2>> {log}"
 
 
@@ -219,7 +219,6 @@ rule daligner:
     run:
         shell("/usr/bin/env bash {input.cmd} >> {log} 2>&1")
         block_las_files = glob.glob(params.db_name + ".*.las")
-        print(block_las_files)
         if len(block_las_files) == 0:
             shell('mv "{params.db_name}.las" {output}')
         else:
