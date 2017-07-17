@@ -49,7 +49,7 @@ PHASM_LAYOUT_DEFAULTS = config.get('phasm', {}).get('layout', {
 
 PHASM_PHASE_OPTIONS = {'t', 'd', 's'}
 PHASM_PHASE_DEFAULTS = config.get('phasm', {}).get('phase', {
-    't': 0.000001,
+    't': 0.00001,
     'd': 0.1,
     's': 5
 })
