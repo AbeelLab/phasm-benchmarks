@@ -94,43 +94,70 @@ assemblies:
         reads: "reads/error_free/ploidy4-10x.fasta"
         fix_headers: true
         ploidy: 4
+        phasm:
+            phase:
+                d: 0.25
     ploidy4-30x-error-free:
         reference: "genomes/ploidy-4/genome.fasta"
         reads: "reads/error_free/ploidy4-30x.fasta"
         fix_headers: true
         ploidy: 4
+        phasm:
+            phase:
+                d: 0.25
     ploidy4-60x-error-free:
         reference: "genomes/ploidy-4/genome.fasta"
         reads: "reads/error_free/ploidy4-60x.fasta"
         fix_headers: true
         ploidy: 4
+        phasm:
+            phase:
+                d: 0.25
     ploidy6-10x-error-free:
         reference: "genomes/ploidy-6/genome.fasta"
         reads: "reads/error_free/ploidy6-10x.fasta"
         fix_headers: true
         ploidy: 6
+        phasm:
+            phase:
+                d: 0.3
     ploidy6-30x-error-free:
         reference: "genomes/ploidy-6/genome.fasta"
         reads: "reads/error_free/ploidy6-30x.fasta"
         fix_headers: true
         ploidy: 6
+        phasm:
+            phase:
+                d: 0.3
     ploidy6-60x-error-free:
         reference: "genomes/ploidy-6/genome.fasta"
         reads: "reads/error_free/ploidy6-60x.fasta"
         fix_headers: true
         ploidy: 6
+        phasm:
+            phase:
+                d: 0.3
     ploidy8-10x-error-free:
         reference: "genomes/ploidy-8/genome.fasta"
         reads: "reads/error_free/ploidy8-10x.fasta"
         fix_headers: true
         ploidy: 8
+        phasm:
+            phase:
+                d: 0.3
     ploidy8-30x-error-free:
         reference: "genomes/ploidy-8/genome.fasta"
         reads: "reads/error_free/ploidy8-30x.fasta"
         fix_headers: true
         ploidy: 8
+        phasm:
+            phase:
+                d: 0.3
     ploidy8-60x-error-free:
         reference: "genomes/ploidy-8/genome.fasta"
         reads: "reads/error_free/ploidy8-60x.fasta"
         fix_headers: true
         ploidy: 8
+        phasm:
+            phase:
+                d: 0.3
