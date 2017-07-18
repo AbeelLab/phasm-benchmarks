@@ -241,7 +241,7 @@ rule phasm_layout:
     params:
         opts = lambda wildcards: get_phasm_layout_opts(wildcards.assembly)
     shell:
-        "phasm layout {params.opts} {input} -o {output[0]} -o {output[1]} 2> {log}"
+        "phasm -v layout {params.opts} {input} -o {output[0]} -o {output[1]} 2> {log}"
 
 rule phasm_chain:
     input:
@@ -252,7 +252,7 @@ rule phasm_chain:
     params:
         output_dir = CHAIN_DIR
     shell:
-        "phasm chain -f gfa2,graphml -o {params.output_dir} {input} 2> {log}"
+        "phasm -v chain -f gfa2,graphml -o {params.output_dir} {input} 2> {log}"
 
 rule phasm_phase:
     input:
@@ -266,7 +266,7 @@ rule phasm_phase:
         opts = lambda wildcards: get_phasm_phase_opts(wildcards.assembly),
         ploidy = lambda wildcards: config['assemblies'][wildcards.assembly]['ploidy']
     shell:
-        "phasm phase -p {params.ploidy} {params.opts} {input[0]} {input[1]} {input[2]} "
+        "phasm -v phase -p {params.ploidy} {params.opts} {input[0]} {input[1]} {input[2]} "
         "> {output}  2> {log}"
 
 rule phasm_concat:
