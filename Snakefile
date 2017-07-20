@@ -34,7 +34,7 @@ PHASED_CONCATENATED_FILE = os.path.join(PHASE_DIR, "{assembly}.fasta")
 ALIGNED_CONTIGS_BAM = os.path.join(ANALYSIS_DIR, "aligned_contigs.bam")
 
 DALIGNER_DEFAULTS = config.get('daligner', {
-    'e': 0.9999,
+    'e': 0.99999,
     'k': 15,
     'w': 1,
     'h': 30,
@@ -47,11 +47,10 @@ PHASM_LAYOUT_DEFAULTS = config.get('phasm', {}).get('layout', {
     'l': 5000
 })
 
-PHASM_PHASE_OPTIONS = {'t', 'd', 's'}
+PHASM_PHASE_OPTIONS = {'t', 'd', 's', 'b', 'c', 'r', 'S'}
 PHASM_PHASE_DEFAULTS = config.get('phasm', {}).get('phase', {
-    't': 0.00001,
-    'd': 0.1,
-    's': 5
+    's': 5,
+    't': 1e-4
 })
 
 def get_daligner_option(assembly, option):
@@ -156,8 +155,6 @@ rule error_free_data:
 # The rules below describe the several steps in our PHASM
 # pipeline.
 #
-
-
 rule createdb:
     input:
         lambda wildcards: config['assemblies'][wildcards.assembly]['reads']
