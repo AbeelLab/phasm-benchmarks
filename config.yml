@@ -3,7 +3,7 @@ dazz_db:
 daligner:
     mem: 16
     threads: 8
-    e: 0.99999
+    e: 0.999
     k: 16
     w: 1
     h: 40
