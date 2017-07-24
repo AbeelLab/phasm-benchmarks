@@ -19,7 +19,9 @@ mkdir -p /tmp/lrvandijk/assemblies/{assembly}
 cp -r * /tmp/lrvandijk/assemblies/{assembly}
 cd /tmp/lrvandijk/assemblies/{assembly}
 
-snakemake --keep-going --cores=8 assemblies/{assembly}/04_phase/{assembly}.fasta
+snakemake --keep-going --cores=8 \
+    -R error_free_data createdb daligner phasm_phase \
+    assemblies/{assembly}/04_phase/{assembly}.fasta
 
 mkdir -p /tudelft.net/staff-bulk/ewi/insy/DBL/lrvandijk/assemblies/{assembly}
 cp -r assemblies/{assembly}/* /tudelft.net/staff-bulk/ewi/insy/DBL/lrvandijk/assemblies/{assembly}
