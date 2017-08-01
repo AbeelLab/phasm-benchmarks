@@ -29,7 +29,7 @@ COMPONENT_FILE = os.path.join(CHAIN_DIR, "component{component_id}.gfa")
 SUBGRAPH_FILE = os.path.join(CHAIN_DIR, "component{component_id}.{subgraph}.gfa")
 
 PHASED_FASTA_FILE = os.path.join(PHASE_DIR, "component{component_id}.{subgraph}.fasta")
-PHASED_PATHS_FILE = os.path.join(PHASE_DIR, "component{component_id}.{subgraph}.csv")
+PHASED_DEBUG_FILE = os.path.join(PHASE_DIR, "component{component_id}.{subgraph}-debugdata.json")
 PHASED_CONCATENATED_FILE = os.path.join(PHASE_DIR, "{assembly}.fasta")
 
 ALIGNED_CONTIGS_BAM = os.path.join(ANALYSIS_DIR, "aligned_contigs.bam")
@@ -259,13 +259,13 @@ rule phasm_phase:
         bubble_gfa = SUBGRAPH_FILE
     output:
         PHASED_FASTA_FILE,
-        PHASED_PATHS_FILE
+        PHASED_DEBUG_FILE
     log: os.path.join(PHASE_DIR, "phasm-phase-component{component_id}.{subgraph}.log")
     params:
         opts = lambda wildcards: get_phasm_phase_opts(wildcards.assembly),
         ploidy = lambda wildcards: config['assemblies'][wildcards.assembly]['ploidy']
     shell:
-        "phasm -v phase -p {params.ploidy} -P {output[1]} {params.opts} {input[0]} {input[1]} {input[2]} "
+        "phasm -v phase -p {params.ploidy} -D {output[1]} {params.opts} {input[0]} {input[1]} {input[2]} "
         "> {output[0]}  2> {log}"
 
 rule phasm_concat:
