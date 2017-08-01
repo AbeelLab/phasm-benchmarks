@@ -18,9 +18,11 @@ rm -rf /tmp/lrvandijk/assemblies/{assembly}
 mkdir -p /tmp/lrvandijk/assemblies/{assembly}
 cp -r * /tmp/lrvandijk/assemblies/{assembly}
 cd /tmp/lrvandijk/assemblies/{assembly}
+touch genomes/*/genome.fasta
 
-snakemake --keep-going --cores=8 \
-    -R error_free_data createdb daligner phasm_phase \
+snakemake --keep-going --cores=8 -f \\
+    reads/error_free/{reads}.fasta
+snakemake --keep-going --cores=8 -f \\
     assemblies/{assembly}/04_phase/{assembly}.fasta
 
 mkdir -p /tudelft.net/staff-bulk/ewi/insy/DBL/lrvandijk/assemblies/{assembly}
@@ -30,4 +32,5 @@ cp -r assemblies/{assembly}/* /tudelft.net/staff-bulk/ewi/insy/DBL/lrvandijk/ass
 for assembly in config['assemblies'].keys():
     fname = "phasm_{}.sh".format(assembly)
     with open(fname, "w") as f:
-        f.write(TEMPLATE.format(assembly=assembly).lstrip())
+        reads = assembly.replace("-error-free", "")
+        f.write(TEMPLATE.format(assembly=assembly, reads=reads).lstrip())
