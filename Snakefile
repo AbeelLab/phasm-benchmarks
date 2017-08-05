@@ -261,6 +261,7 @@ rule phasm_phase:
         PHASED_FASTA_FILE,
         PHASED_DEBUG_FILE
     log: os.path.join(PHASE_DIR, "phasm-phase-component{component_id}.{subgraph}.log")
+    threads: 2
     params:
         opts = lambda wildcards: get_phasm_phase_opts(wildcards.assembly),
         ploidy = lambda wildcards: config['assemblies'][wildcards.assembly]['ploidy']
