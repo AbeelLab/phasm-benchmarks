@@ -1,3 +1,5 @@
 .snakemake
 reads/*
 assemblies/*
+slurm-*.out
+phasm_*.sh
