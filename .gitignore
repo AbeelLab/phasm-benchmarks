@@ -3,3 +3,9 @@ reads/*
 assemblies/*
 slurm-*.out
 phasm_*.sh
+*.amb
+*.ann
+*.bwt
+*.fai
+*.sa
+*.pac
