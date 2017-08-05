@@ -33,7 +33,7 @@ snakemake --keep-going --cores=2 -f \\
 
 mkdir -p /tudelft.net/staff-bulk/ewi/insy/DBL/lrvandijk/assemblies/{assembly}/00_reads
 cp -r assemblies/{assembly}/* /tudelft.net/staff-bulk/ewi/insy/DBL/lrvandijk/assemblies/{assembly}
-cp reads/error_free/{reads}.fasta reads/error_free/{reads}.fasta.fai reads/error_free/{reads}.fasta.json \\
+cp reads/error_free/* \\
     /tudelft.net/staff-bulk/ewi/insy/DBL/lrvandijk/assemblies/{assembly}/00_reads
 """
 
