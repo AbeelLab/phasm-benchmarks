@@ -12,6 +12,8 @@ daligner:
 phasm:
     layout:
         l: 5000
+    phase:
+        r: 10
 readsets:
     ploidy2-10x:
         genome: ploidy-2
