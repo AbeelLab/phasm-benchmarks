@@ -9,3 +9,4 @@ phasm_*.sh
 *.fai
 *.sa
 *.pac
+.ipynb_checkpoints
