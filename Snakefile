@@ -156,78 +156,89 @@ rule error_free_data:
 # The rules below describe the several steps in our PHASM
 # pipeline.
 #
-rule createdb:
-    input:
-        lambda wildcards: config['assemblies'][wildcards.assembly]['reads']
-    output:
-        DB_FILE,
-        os.path.join(OVERLAP_DIR, ".database.idx"),
-        os.path.join(OVERLAP_DIR, ".database.bps"),
-    log: os.path.join(OVERLAP_DIR, "createdb.log")
-    shadow: "shallow"
-    params:
-        path = os.path.join(OVERLAP_DIR, "database.db"),
-        # DAZZ_DB only accepts PacBio like FASTA headers, fix them
-        # and store a translation JSON file.
-        fasta_input = lambda wildcards, input: (
-            "phasm-convert fasta2dazzdb -T{input}.json {input}"
-            if config['assemblies'][wildcards.assembly].get('fix_headers', False)
-            else "cat {input}"
-        ).format(input=input),
-        db_block_size = int(config['dazz_db']['blocksize'])
-    shell:
-        """
-        {params.fasta_input} | fasta2DB {params.path} \
-            -i{wildcards.assembly}.fasta > {log} 2>&1
-        DBsplit -s{params.db_block_size} {params.path} >> {log} 2>&1
-        DBdust {params.path} >> {log} 2>&1
-        """
-
-rule daligner:
-    input:
-        db = DB_FILE
-    output:
-        DALIGNER_HPC_SH,
-        LAS_FILE
-    log: os.path.join(OVERLAP_DIR, "daligner.log")
-    shadow: "shallow"
-    params:
-        db_name = os.path.join(OVERLAP_DIR, "database"),
-        mem = config['daligner']['mem'],
-        k = lambda wildcards: get_daligner_option(wildcards.assembly, 'k'),
-        w = lambda wildcards: get_daligner_option(wildcards.assembly, 'w'),
-        h = lambda wildcards: get_daligner_option(wildcards.assembly, 'h'),
-        e = lambda wildcards: get_daligner_option(wildcards.assembly, 'e'),
-        l = lambda wildcards: get_daligner_option(wildcards.assembly, 'l'),
-        s = lambda wildcards: get_daligner_option(wildcards.assembly, 's')
-    threads: int(config['daligner']['threads'])
-    run:
-        shell("""HPC.daligner -v -T{threads} -M{params.mem} -mdust -k{params.k} \
-            -w{params.w} -h{params.h} -e{params.e} \
-            -s{params.s} {input} 1> {output[0]} 2>> {log}""")
-        shell("/usr/bin/env bash {output[0]} >> {log} 2>&1")
-        block_las_files = glob.glob(params.db_name + ".*.las")
-        if len(block_las_files) == 0:
-            shell('mv "{params.db_name}.las" {output[1]}')
-        else:
-            shell('LAcat "{params.db_name}.#.las" > {output[1]}')
-            shell('rm -f "{params.db_name}.*.las"')
-
+# rule createdb:
+#     input:
+#         lambda wildcards: config['assemblies'][wildcards.assembly]['reads']
+#     output:
+#         DB_FILE,
+#         os.path.join(OVERLAP_DIR, ".database.idx"),
+#         os.path.join(OVERLAP_DIR, ".database.bps"),
+#     log: os.path.join(OVERLAP_DIR, "createdb.log")
+#     shadow: "shallow"
+#     params:
+#         path = os.path.join(OVERLAP_DIR, "database.db"),
+#         # DAZZ_DB only accepts PacBio like FASTA headers, fix them
+#         # and store a translation JSON file.
+#         fasta_input = lambda wildcards, input: (
+#             "phasm-convert fasta2dazzdb -T{input}.json {input}"
+#             if config['assemblies'][wildcards.assembly].get('fix_headers', False)
+#             else "cat {input}"
+#         ).format(input=input),
+#         db_block_size = int(config['dazz_db']['blocksize'])
+#     shell:
+#         """
+#         {params.fasta_input} | fasta2DB {params.path} \
+#             -i{wildcards.assembly}.fasta > {log} 2>&1
+#         DBsplit -s{params.db_block_size} {params.path} >> {log} 2>&1
+#         DBdust {params.path} >> {log} 2>&1
+#         """
+# 
+# rule daligner:
+#     input:
+#         db = DB_FILE
+#     output:
+#         DALIGNER_HPC_SH,
+#         LAS_FILE
+#     log: os.path.join(OVERLAP_DIR, "daligner.log")
+#     shadow: "shallow"
+#     params:
+#         db_name = os.path.join(OVERLAP_DIR, "database"),
+#         mem = config['daligner']['mem'],
+#         k = lambda wildcards: get_daligner_option(wildcards.assembly, 'k'),
+#         w = lambda wildcards: get_daligner_option(wildcards.assembly, 'w'),
+#         h = lambda wildcards: get_daligner_option(wildcards.assembly, 'h'),
+#         e = lambda wildcards: get_daligner_option(wildcards.assembly, 'e'),
+#         l = lambda wildcards: get_daligner_option(wildcards.assembly, 'l'),
+#         s = lambda wildcards: get_daligner_option(wildcards.assembly, 's')
+#     threads: int(config['daligner']['threads'])
+#     run:
+#         shell("""HPC.daligner -v -T{threads} -M{params.mem} -mdust -k{params.k} \
+#             -w{params.w} -h{params.h} -e{params.e} \
+#             -s{params.s} {input} 1> {output[0]} 2>> {log}""")
+#         shell("/usr/bin/env bash {output[0]} >> {log} 2>&1")
+#         block_las_files = glob.glob(params.db_name + ".*.las")
+#         if len(block_las_files) == 0:
+#             shell('mv "{params.db_name}.las" {output[1]}')
+#         else:
+#             shell('LAcat "{params.db_name}.#.las" > {output[1]}')
+#             shell('rm -f "{params.db_name}.*.las"')
+# 
 # Convert DALIGNER local alignments to GFA2
 # Use earlier generated JSON translation file (see createdb)
 # to use our original read ID's again.
-rule phasm_gfa:
+# rule phasm_gfa:
+#     input:
+#         db = DB_FILE,
+#         las = LAS_FILE
+#     output:
+#         GFA_FILE
+#     log: os.path.join(OVERLAP_DIR, "daligner.log")
+#     params:
+#         translation_file = lambda wildcards: config['assemblies'][wildcards.assembly]['reads'] + ".json"
+#     shell:
+#         "LAdump -ocd {input.db} {input.las} | phasm-convert daligner2gfa "
+#         "-T{params.translation_file} <(DBdump -rh {input.db}) 1> {output} 2>> {log}"
+
+rule phasm_overlap:
     input:
-        db = DB_FILE,
-        las = LAS_FILE
+        lambda wildcards: config['assembies'][wildcards.assembly]['reads']
     output:
         GFA_FILE
-    log: os.path.join(OVERLAP_DIR, "daligner.log")
+    log: os.path.join(OVERLAP_DIR, "phasm-overlap.log")
     params:
-        translation_file = lambda wildcards: config['assemblies'][wildcards.assembly]['reads'] + ".json"
+        opts = lambda: wildcards: get_phasm_overlap_opts(wildcards.assembly)
     shell:
-        "LAdump -ocd {input.db} {input.las} | phasm-convert daligner2gfa "
-        "-T{params.translation_file} <(DBdump -rh {input.db}) 1> {output} 2>> {log}"
+        "phasm -v overlap {params.opts} -o {output} {input} 2> {log}"
 
 rule phasm_layout:
     input:
