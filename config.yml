@@ -151,38 +151,23 @@ assemblies:
         reads: "reads/error_free/ploidy8-60x.fasta"
         fix_headers: true
         ploidy: 8
-    ploidy-2-60x-lh:
+    ploidy2-60x-lh:
         reference: "genomes/ploidy-2-lh/genome.fasta"
         reads: "reads/error_free/ploidy2-60x-lh.fasta"
         ploidy: 2
-        phasm: 
-            overlap:
-                l: 500
-    ploidy-3-60x-lh:
+    ploidy3-60x-lh:
         reference: "genomes/ploidy-3-lh/genome.fasta"
         reads: "reads/error_free/ploidy3-60x-lh.fasta"
         ploidy: 3
-        phasm: 
-            overlap:
-                l: 500
-    ploidy-4-60x-lh:
+    ploidy4-60x-lh:
         reference: "genomes/ploidy-4-lh/genome.fasta"
         reads: "reads/error_free/ploidy4-60x-lh.fasta"
         ploidy: 4
-        phasm: 
-            overlap:
-                l: 500
-    ploidy-6-60x-lh:
+    ploidy6-60x-lh:
         reference: "genomes/ploidy-6-lh/genome.fasta"
         reads: "reads/error_free/ploidy6-60x-lh.fasta"
         ploidy: 6
-        phasm: 
-            overlap:
-                l: 500
-    ploidy-8-60x-lh:
+    ploidy8-60x-lh:
         reference: "genomes/ploidy-8-lh/genome.fasta"
         reads: "reads/error_free/ploidy8-60x-lh.fasta"
         ploidy: 8
-        phasm: 
-            overlap:
-                l: 500
