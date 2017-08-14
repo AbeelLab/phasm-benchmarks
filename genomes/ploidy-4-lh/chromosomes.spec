@@ -1,8 +1,8 @@
 [DEFAULT]
 substitutions.model = lognormal
-substitutions.mean = 2.98
-substitutions.sigma = 1.31
-substitutions.loc = 250
+substitutions.mean = 3.578
+substitutions.sigma = 1.89
+substitutions.loc = 1500
 
 insertions.model = 0
 
