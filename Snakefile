@@ -43,6 +43,11 @@ DALIGNER_DEFAULTS = config.get('daligner', {
     's': 100
 })
 
+PHASM_OVERLAP_OPTIONS = {'l'}
+PHASM_OVERLAP_DEFAULTS = config.get('phasm', {}).get('overlap', {
+    'l': 1000
+})
+
 PHASM_LAYOUT_OPTIONS = {'l', 's', 'a', 'r', 't', 'F'}
 PHASM_LAYOUT_DEFAULTS = config.get('phasm', {}).get('layout', {
     'l': 5000
@@ -65,6 +70,13 @@ def get_daligner_option(assembly, option):
 def gen_option_str(opts, allowed):
     return " ".join("-{}{}".format(k, v) for k, v in opts.items()
                     if v and k in allowed)
+
+
+def get_phasm_overlap_opts(assembly):
+    opts = config['assemblies'][assembly].get('phasm', {}).get(
+        'overlap', PHASM_OVERLAP_DEFAULTS)
+
+    return gen_option_str(opts, PHASM_OVERLAP_OPTIONS)
 
 
 def get_phasm_layout_opts(assembly):
@@ -231,12 +243,12 @@ rule error_free_data:
 
 rule phasm_overlap:
     input:
-        lambda wildcards: config['assembies'][wildcards.assembly]['reads']
+        lambda wildcards: config['assemblies'][wildcards.assembly]['reads']
     output:
         GFA_FILE
     log: os.path.join(OVERLAP_DIR, "phasm-overlap.log")
     params:
-        opts = lambda: wildcards: get_phasm_overlap_opts(wildcards.assembly)
+        opts = lambda wildcards: get_phasm_overlap_opts(wildcards.assembly)
     shell:
         "phasm -v overlap {params.opts} -o {output} {input} 2> {log}"
 
