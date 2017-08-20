@@ -20,3 +20,5 @@ dependencies:
         - pysam
         - pybedtools
         - simlord
+        - intervaltree
+        -  matplotlib-venn
